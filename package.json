@@ -1,0 +1,49 @@
+{
+  "name": "karma-mojo",
+  "version": "1.0.0",
+  "description": "Focused Karma runner.",
+  "main": "index.js",
+  "files": [
+    "bin/mojo",
+    "defaults.js",
+    "greeting.txt",
+    "index.js"
+  ],
+  "bin": {
+    "mojo": "bin/mojo"
+  },
+  "scripts": {
+    "lint": "eslint bin/mojo index.js defaults.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amireh/karma-mojo.git"
+  },
+  "keywords": [
+    "karma",
+    "plugin",
+    "test",
+    "tdd"
+  ],
+  "author": {
+    "name": "Ahmad Amireh",
+    "email": "ahmad@instructure.com"
+  },
+  "license": "AGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/amireh/karma-mojo/issues"
+  },
+  "homepage": "https://github.com/amireh/karma-mojo#readme",
+  "devDependencies": {
+    "eslint": "3.19.0",
+    "karma": "1.7.0"
+  },
+  "peerDependencies": {
+    "karma": "^1 || ^0.13"
+  },
+  "dependencies": {
+    "chokidar": "1.7.0",
+    "commander": "2.9.0",
+    "glob": "7.1.2"
+  }
+}

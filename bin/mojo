@@ -1,0 +1,57 @@
+#!/usr/bin/env node
+
+// bin/mojo
+//
+// A CLI for Karma with the Mojo plugin. For more info about Mojo, please refer
+// to `/doc/testing/testing_with_mojo.md`.
+//
+// Usage:
+//
+//   ./bin/mojo --help
+//
+var program = require('commander');
+var spawn = require('child_process').spawn;
+var os = require('os');
+var path = require('path');
+var args;
+
+function set(envVar, flag) {
+  if (flag) {
+    process.env[envVar] = typeof flag === 'string' ? flag : '1';
+  }
+}
+
+program
+  .arguments('[configFile]')
+  .option('-c, --continue', 'Start using the list of tests you tracked in the previous session.')
+  .option('-C, --creep', 'Track test files and their siblings.')
+  .option('-F, --focus', 'Run only one test file at a time (the most recently edited one.)')
+  .option('-g, --grep [pattern]', 'Name of a test suite (describe(...)) to add to the tracked test list.')
+  .option('--grep-dir [pattern]', 'Directory to limit the grep pattern to.')
+  .option('--temp-dir [path]', 'Directory to store temporary files in.')
+  .option('--coverage', 'Enable code coverage.')
+  .option('-v, --verbose', 'Bump up webpack & karma verbosity.')
+  .option('--no-cache', 'Do not write the tracked files to disk (for future runs using --continue.)')
+  .option('--no-greeting', '...')
+  .allowUnknownOption()
+  .parse(process.argv)
+;
+
+set('VERBOSE', program.verbose);
+set('COVERAGE', process.env.COVERAGE === '1' || program.coverage);
+set('MOJO_CONTINUE', program['continue']);
+set('MOJO_CREEP', program.creep);
+set('MOJO_NO_CACHE', program.cache === false);
+set('MOJO_RUDE', program.greeting === false);
+set('MOJO_GREP', program.grep);
+set('MOJO_GREP_DIR', program.grepDir || '{src}');
+set('MOJO_FOCUS', program.focus);
+set('MOJO_TEMP_DIR', program.tempDir || os.tmpdir());
+set('MOJO_RUNNER_PATH', path.resolve(process.env.MOJO_TEMP_DIR || os.tmpdir(), 'mojo-runner.js'));
+set('MOJO_CACHE_PATH', path.resolve(process.env.MOJO_TEMP_DIR || os.tmpdir(), 'mojo.cache.json'));
+
+args = ['start', program.args[0] || 'karma.mojo.conf.js'].concat(program.args.slice(1));
+
+spawn('node_modules/karma/bin/karma', args, {
+  stdio: [ 0, 1, 2 ]
+});
