@@ -35,15 +35,15 @@
   },
   "homepage": "https://github.com/amireh/karma-mojo#readme",
   "devDependencies": {
-    "eslint": "3.19.0",
-    "karma": "1.7.0"
+    "eslint": "5.5.0",
+    "karma": "3.0.0"
   },
   "peerDependencies": {
-    "karma": "^1 || ^0.13"
+    "karma": "^3"
   },
   "dependencies": {
-    "chokidar": "1.7.0",
-    "commander": "2.9.0",
-    "glob": "7.1.2"
+    "chokidar": "2.0.4",
+    "commander": "2.18.0",
+    "glob": "7.1.3"
   }
 }
