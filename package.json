@@ -39,7 +39,7 @@
     "karma": "3.0.0"
   },
   "peerDependencies": {
-    "karma": "^3"
+    "karma": "^3 || ^2 || ^1 || ^0.13"
   },
   "dependencies": {
     "chokidar": "2.0.4",
