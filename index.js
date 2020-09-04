@@ -2,7 +2,7 @@ var fs = require('fs');
 var path = require('path');
 var chokidar = require('chokidar');
 var glob = require('glob');
-var exec = require('child_process').exec;
+var execFile = require('child_process').execFile;
 var defaults = require('./defaults');
 var root = process.cwd();
 
@@ -97,7 +97,7 @@ function Mojo(emitter, config, executor, logger) {
   }
 
   function grep(callback) {
-    exec('egrep -rl "describe\\([\'\\"].*' + config.grep + '" ' + config.grepDir, {
+    execFile('egrep', ['-rl', 'describe\\([\'\\"].*' + config.grep + ' ' + config.grepDir], {
       cwd: root
     }, function(error, stdout) {
       if (!error) {
